@@ -29,11 +29,19 @@ namespace CustomKeys
         {
             base.OnLoad(e);
 
+            this.Text = $"Custom Keys - {GetVersion()}";
             if (_Config.Trace)
             {
                 this.TraceForm = new Trace();
                 this.TraceForm.Show();
             }
+        }
+
+        private string GetVersion()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fvi.FileVersion != null?fvi.FileVersion:string.Empty;
         }
 
         private void LoadConfig()

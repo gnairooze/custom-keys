@@ -6,10 +6,10 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyVersion>1.7</AssemblyVersion>
-    <FileVersion>1.7</FileVersion>
+    <AssemblyVersion>1.8</AssemblyVersion>
+    <FileVersion>1.8</FileVersion>
     <Title>Custom Keys</Title>
-    <Version>1.7.0</Version>
+    <Version>1.8.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
