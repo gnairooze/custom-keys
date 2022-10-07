@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <None Update="custom-keys.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="help.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

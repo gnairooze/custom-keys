@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Diagnostics.Metrics;
 using System.Reflection;
 using System.Text.Json.Serialization;
@@ -41,7 +42,7 @@ namespace CustomKeys
         {
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
-            return fvi.FileVersion != null?fvi.FileVersion:string.Empty;
+            return fvi.FileVersion != null ? fvi.FileVersion : string.Empty;
         }
 
         private void LoadConfig()
@@ -93,6 +94,10 @@ namespace CustomKeys
             {
                 this.Opacity = _Config.Opacity;
             }
+
+            if (_Config.Height != default && _Config.Width != default) this.Size = new Size(_Config.Width, _Config.Height);
+
+            if (_Config.Top != default && _Config.Left != default) this.Location = new Point(_Config.Left, _Config.Top);
         }
 
         public MainForm()
@@ -166,7 +171,7 @@ namespace CustomKeys
             _ = Zoom(btn);
         }
 
-        private async Task Zoom (Button btn)
+        private async Task Zoom(Button btn)
         {
             ZoomIn(btn);
             await Task.Delay(1000);
@@ -245,6 +250,18 @@ namespace CustomKeys
 
             this.TraceForm.lstTrace.Items.Insert(0, $"tooltip draw - {e.AssociatedWindow.Handle}");
 
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            _Config.Height = this.Height;
+            _Config.Width = this.Width;
+            _Config.Top = this.Top;
+            _Config.Left = this.Left;
+
+            SaveConfig();
+
+            base.OnClosing(e);
         }
     }
 }

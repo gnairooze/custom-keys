@@ -58,6 +58,7 @@
             this.Controls.Add(this.btnSettings);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Custom Keys - 1.0";
             this.ResumeLayout(false);
 
