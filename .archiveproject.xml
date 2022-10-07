@@ -1,6 +1,6 @@
 <configuration>
-	<targetPath>f:\Data\My Projects\coptic-calendar-cs</targetPath>
-	<attendedRun>true</attendedRun>
+	<targetPath>f:\Data\My Projects\custom-keys</targetPath>
+	<attendedRun>false</attendedRun>
 	<ignoreList>
 		<ignore>bin</ignore>
 		<ignore>obj</ignore>

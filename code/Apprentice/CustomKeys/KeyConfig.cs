@@ -11,12 +11,14 @@ namespace CustomKeys
         public string Id { get; set; }
         public string Display { get; set; }
         public string KeyPress { get; set; }
+        public int Color { get; set; }
 
-        public KeyConfig(string id, string display, string keyPress)
+        public KeyConfig(string id, string display, string keyPress, int color)
         {
             Id = id;
             Display = display;
             KeyPress = keyPress;
+            Color = color;
         }
     }
 }

@@ -65,6 +65,7 @@ namespace CustomKeys
                 
                 btn.Text = keyConfig.Display;
                 btn.Tag = keyConfig.KeyPress;
+                btn.BackColor = Color.FromArgb(keyConfig.Color);
             }
         }
 

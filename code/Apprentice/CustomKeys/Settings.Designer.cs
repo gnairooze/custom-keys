@@ -81,14 +81,14 @@
             this.btnHelp.TabIndex = 11;
             this.btnHelp.Text = "Help";
             this.btnHelp.UseVisualStyleBackColor = true;
-            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+            this.btnHelp.Click += new System.EventHandler(this.Help_Click);
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(433, 837);
+            this.ClientSize = new System.Drawing.Size(536, 837);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numOpacity);

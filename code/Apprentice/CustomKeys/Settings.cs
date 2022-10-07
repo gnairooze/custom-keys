@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace CustomKeys
@@ -34,6 +35,8 @@ namespace CustomKeys
             int col3 = 130;
             int col4 = 250;
             int col5 = 312;
+            int col6 = 440;
+            int col7 = 520;
 
             for (int i = 1; i <= 30; i++)
             {
@@ -41,7 +44,7 @@ namespace CustomKeys
 
                 if (config == null || config.Id == String.Empty)
                 {
-                    config = new KeyConfig($"button{i}", $"{i}", string.Empty);
+                    config = new KeyConfig($"button{i}", $"{i}", string.Empty, Color.LightGray.ToArgb());
 
                     _Config.KeyConfigs.Add(config);
                 }
@@ -93,10 +96,44 @@ namespace CustomKeys
                     Top = padTop + (i * height) - 4,
                     Left = col5,
                     Name = $"txtKeyPress{i}",
+                    Text = config.KeyPress,
                     Tag = config
                 };
                 txtKeyPress.TextChanged += KeyPressTextChanged;
                 this.Controls.Add(txtKeyPress);
+
+                //add color button
+                var btnColor = new Button()
+                { 
+                    Text = "Color",
+                    Top = padTop + (i * height) - 4,
+                    Left = col6,
+                    Name = $"btnColor{i}",
+                    Tag = config,
+                    BackColor = Color.FromArgb(config.Color)
+                };
+                btnColor.Click += BtnColor_Click;
+                this.Controls.Add(btnColor);
+            }
+        }
+
+        private void BtnColor_Click(object? sender, EventArgs e)
+        {
+            if (sender == null) return;
+
+            var btn = (Button)sender;
+            if (btn.Tag is not KeyConfig config) return;
+
+            ColorDialog dialog = new ()
+            {
+                ShowHelp = true,
+                Color = Color.LightGray
+            };
+
+            if(dialog.ShowDialog() == DialogResult.OK)
+            {
+                config.Color = dialog.Color.ToArgb();
+                btn.BackColor = dialog.Color;
             }
         }
 
@@ -149,7 +186,7 @@ namespace CustomKeys
             _Config.Opacity = RelatedForm.Opacity;
         }
 
-        private void btnHelp_Click(object sender, EventArgs e)
+        private void Help_Click(object sender, EventArgs e)
         {
             Process.Start("explorer", Path.Combine(Environment.CurrentDirectory,HELP_FILE));
         }
