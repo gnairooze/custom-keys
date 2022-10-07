@@ -150,9 +150,7 @@ namespace CustomKeys
                 FlatStyle = FlatStyle.Flat
             };
             btn.MouseEnter += Btn_Enter;
-            btn.MouseLeave += Btn_Leave;
             btn.Enter += Btn_Enter;
-            btn.Leave += Btn_Leave;
             btn.Click += new System.EventHandler(this.Key_Click);
 
             this.Controls.Add(btn);
@@ -160,27 +158,37 @@ namespace CustomKeys
             return btn;
         }
 
-        private void Btn_Leave(object? sender, EventArgs e)
+        private void Btn_Enter(object? sender, EventArgs e)
         {
             if (sender == null) return;
 
             var btn = (Button)sender;
+            _ = Zoom(btn);
+        }
+
+        private async Task Zoom (Button btn)
+        {
+            ZoomIn(btn);
+            await Task.Delay(1000);
+            ZoomOut(btn);
+        }
+
+        private void ZoomIn(Button btn)
+        {
+            btn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btn.Size = new System.Drawing.Size(67, 33);
+            btn.Left -= 5;
+            btn.Top -= 5;
+        }
+
+        private void ZoomOut(Button btn)
+        {
             btn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btn.Size = new System.Drawing.Size(57, 23);
             btn.Left += 5;
             btn.Top += 5;
         }
 
-        private void Btn_Enter(object? sender, EventArgs e)
-        {
-            if (sender == null) return;
-
-            var btn = (Button)sender;
-            btn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            btn.Size = new System.Drawing.Size(67, 33);
-            btn.Left -= 5;
-            btn.Top -= 5;
-        }
 
         private Label CreateKeyLabel(int x, int y, string name, string text)
         {
