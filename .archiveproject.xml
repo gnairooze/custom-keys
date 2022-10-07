@@ -1,0 +1,10 @@
+<configuration>
+	<targetPath>f:\Data\My Projects\coptic-calendar-cs</targetPath>
+	<attendedRun>true</attendedRun>
+	<ignoreList>
+		<ignore>bin</ignore>
+		<ignore>obj</ignore>
+		<ignore>.git</ignore>
+		<ignore>.vs</ignore>
+	</ignoreList>
+</configuration>
