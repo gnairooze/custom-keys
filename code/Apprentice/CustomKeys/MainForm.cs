@@ -65,7 +65,9 @@ namespace CustomKeys
                 
                 btn.Text = keyConfig.Display;
                 btn.Tag = keyConfig.KeyPress;
-                btn.BackColor = Color.FromArgb(keyConfig.Color);
+                btn.BackColor = Color.FromArgb(keyConfig.BackColor);
+                btn.ForeColor = Color.FromArgb(keyConfig.ForeColor);
+                btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(keyConfig.HoverColor);
             }
         }
 
@@ -128,7 +130,7 @@ namespace CustomKeys
                 TabIndex = index,
                 Text = text,
                 UseVisualStyleBackColor = true,
-
+                FlatStyle = FlatStyle.Flat
             };
             btn.Click += new System.EventHandler(this.Key_Click);
 

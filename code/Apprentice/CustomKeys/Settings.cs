@@ -37,6 +37,7 @@ namespace CustomKeys
             int col5 = 312;
             int col6 = 440;
             int col7 = 520;
+            int col8 = 600;
 
             for (int i = 1; i <= 30; i++)
             {
@@ -44,7 +45,7 @@ namespace CustomKeys
 
                 if (config == null || config.Id == String.Empty)
                 {
-                    config = new KeyConfig($"button{i}", $"{i}", string.Empty, Color.LightGray.ToArgb());
+                    config = new KeyConfig($"button{i}", $"{i}", string.Empty, Color.LightGray.ToArgb(), Color.Black.ToArgb(), Color.DarkGray.ToArgb());
 
                     _Config.KeyConfigs.Add(config);
                 }
@@ -102,22 +103,41 @@ namespace CustomKeys
                 txtKeyPress.TextChanged += KeyPressTextChanged;
                 this.Controls.Add(txtKeyPress);
 
-                //add color button
-                var btnColor = new Button()
-                { 
-                    Text = "Color",
-                    Top = padTop + (i * height) - 4,
-                    Left = col6,
-                    Name = $"btnColor{i}",
-                    Tag = config,
-                    BackColor = Color.FromArgb(config.Color)
-                };
-                btnColor.Click += BtnColor_Click;
-                this.Controls.Add(btnColor);
+                //add back color button
+                var btnBackColor = CreateButton("BackColor", padTop + (i * height) - 4, col6, $"btnBackColor{i}", config, Color.FromArgb(config.BackColor), Color.Black, Color.DarkGray);
+                btnBackColor.Click += BackColor_Click;
+
+                //add fore color button
+                var btnForeColor = CreateButton("ForeColor", padTop + (i * height) - 4, col7, $"btnForeColor{i}", config, Color.FromArgb(config.ForeColor), Color.White, Color.DarkGray);
+                btnForeColor.Click += ForeColor_Click;
+
+                //add hover color button
+                var btnHoverColor = CreateButton("HoverColor", padTop + (i * height) - 4, col8, $"btnHoverColor{i}", config, Color.FromArgb(config.HoverColor), Color.White, Color.Black);
+                btnHoverColor.Click += HoverColor_Click;
             }
         }
 
-        private void BtnColor_Click(object? sender, EventArgs e)
+        private Button CreateButton(string text, int top, int left, string name, object tag, Color backcolor, Color forecolor, Color hovercolor)
+        {
+            var btn = new Button()
+            {
+                AutoSize = true,
+                Text = text,
+                Top = top,
+                Left = left,
+                Name = name,
+                Tag = tag,
+                BackColor = backcolor,
+                ForeColor = forecolor,
+                FlatStyle = FlatStyle.Flat
+            };
+            
+            btn.FlatAppearance.MouseOverBackColor = hovercolor;
+
+            this.Controls.Add(btn);
+            return btn;
+        }
+        private void BackColor_Click(object? sender, EventArgs e)
         {
             if (sender == null) return;
 
@@ -132,11 +152,48 @@ namespace CustomKeys
 
             if(dialog.ShowDialog() == DialogResult.OK)
             {
-                config.Color = dialog.Color.ToArgb();
+                config.BackColor = dialog.Color.ToArgb();
                 btn.BackColor = dialog.Color;
             }
         }
+        private void ForeColor_Click(object? sender, EventArgs e)
+        {
+            if (sender == null) return;
 
+            var btn = (Button)sender;
+            if (btn.Tag is not KeyConfig config) return;
+
+            ColorDialog dialog = new()
+            {
+                ShowHelp = true,
+                Color = Color.Black
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                config.ForeColor = dialog.Color.ToArgb();
+                btn.BackColor = dialog.Color;
+            }
+        }
+        private void HoverColor_Click(object? sender, EventArgs e)
+        {
+            if (sender == null) return;
+
+            var btn = (Button)sender;
+            if (btn.Tag is not KeyConfig config) return;
+
+            ColorDialog dialog = new()
+            {
+                ShowHelp = true,
+                Color = Color.DarkGray
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                config.HoverColor = dialog.Color.ToArgb();
+                btn.BackColor = dialog.Color;
+            }
+        }
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);

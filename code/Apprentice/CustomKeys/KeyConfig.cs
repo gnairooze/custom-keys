@@ -11,14 +11,18 @@ namespace CustomKeys
         public string Id { get; set; }
         public string Display { get; set; }
         public string KeyPress { get; set; }
-        public int Color { get; set; }
+        public int BackColor { get; set; }
+        public int ForeColor { get; set; }
+        public int HoverColor { get; set; }
 
-        public KeyConfig(string id, string display, string keyPress, int color)
+        public KeyConfig(string id, string display, string keyPress, int backcolor, int forecolor, int hovercolor)
         {
             Id = id;
             Display = display;
             KeyPress = keyPress;
-            Color = color;
+            BackColor = backcolor;
+            ForeColor = forecolor;
+            HoverColor = hovercolor;
         }
     }
 }
