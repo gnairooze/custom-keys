@@ -32,6 +32,7 @@
             this.numOpacity = new System.Windows.Forms.NumericUpDown();
             this.chkTop = new System.Windows.Forms.CheckBox();
             this.btnHelp = new System.Windows.Forms.Button();
+            this.chkTrace = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numOpacity)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,7 +76,7 @@
             // 
             // btnHelp
             // 
-            this.btnHelp.Location = new System.Drawing.Point(312, 11);
+            this.btnHelp.Location = new System.Drawing.Point(403, 9);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(75, 23);
             this.btnHelp.TabIndex = 11;
@@ -83,12 +84,24 @@
             this.btnHelp.UseVisualStyleBackColor = true;
             this.btnHelp.Click += new System.EventHandler(this.Help_Click);
             // 
+            // chkTrace
+            // 
+            this.chkTrace.AutoSize = true;
+            this.chkTrace.Location = new System.Drawing.Point(280, 13);
+            this.chkTrace.Name = "chkTrace";
+            this.chkTrace.Size = new System.Drawing.Size(53, 19);
+            this.chkTrace.TabIndex = 12;
+            this.chkTrace.Text = "Trace";
+            this.chkTrace.UseVisualStyleBackColor = true;
+            this.chkTrace.CheckedChanged += new System.EventHandler(this.Trace_CheckedChanged);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(846, 837);
+            this.Controls.Add(this.chkTrace);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numOpacity);
@@ -107,5 +120,6 @@
         private NumericUpDown numOpacity;
         private CheckBox chkTop;
         private Button btnHelp;
+        private CheckBox chkTrace;
     }
 }

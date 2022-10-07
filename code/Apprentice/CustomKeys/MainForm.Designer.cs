@@ -45,7 +45,9 @@
             // 
             // toolTipKeys
             // 
-            this.toolTipKeys.IsBalloon = true;
+            this.toolTipKeys.ShowAlways = true;
+            this.toolTipKeys.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.toolTipKeys_Draw);
+            this.toolTipKeys.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTipKeys_Popup);
             // 
             // MainForm
             // 

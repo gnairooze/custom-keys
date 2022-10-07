@@ -10,6 +10,7 @@ namespace CustomKeys
     {
         public bool TopMost { get; set; }
         public double Opacity { get; set; }
+        public bool Trace { get; set; }
 
         public List<KeyConfig> KeyConfigs { get; private set; }
 

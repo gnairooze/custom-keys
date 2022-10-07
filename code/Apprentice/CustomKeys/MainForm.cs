@@ -12,23 +12,28 @@ namespace CustomKeys
 
         private Config _Config = new();
 
+        public Trace? TraceForm { get; set; }
+
         protected override CreateParams CreateParams
         {
-            get 
-            { 
+            get
+            {
                 CreateParams cp = base.CreateParams;
                 cp.ExStyle |= 0x08000000;
 
                 return cp;
             }
         }
-        
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            LoadConfig();
-            ApplyConfig();
 
+            if (_Config.Trace)
+            {
+                this.TraceForm = new Trace();
+                this.TraceForm.Show();
+            }
         }
 
         private void LoadConfig()
@@ -37,7 +42,7 @@ namespace CustomKeys
 
             var config = Newtonsoft.Json.JsonConvert.DeserializeObject<Config>(json);
 
-            if(config != null) _Config = config;
+            if (config != null) _Config = config;
         }
 
         private void ApplyConfig()
@@ -61,13 +66,14 @@ namespace CustomKeys
                 var control = this.Controls.Find(keyConfig.Id, false).First();
                 if (control.GetType() != typeof(Button)) continue;
 
-                Button btn = (Button)this.Controls.Find(keyConfig.Id, false).First();
-                
+                Button btn = (Button)control;
+
                 btn.Text = keyConfig.Display;
                 btn.Tag = keyConfig.KeyPress;
                 btn.BackColor = Color.FromArgb(keyConfig.BackColor);
                 btn.ForeColor = Color.FromArgb(keyConfig.ForeColor);
                 btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(keyConfig.HoverColor);
+
                 toolTipKeys.SetToolTip(btn, keyConfig.Tooltip);
             }
         }
@@ -75,7 +81,7 @@ namespace CustomKeys
         private void ApplyGeneralSettings()
         {
             this.TopMost = _Config.TopMost;
-            if(_Config.Opacity * 100 >= OPACITY_MIN && _Config.Opacity * 100 <= OPACITY_MAX)
+            if (_Config.Opacity * 100 >= OPACITY_MIN && _Config.Opacity * 100 <= OPACITY_MAX)
             {
                 this.Opacity = _Config.Opacity;
             }
@@ -86,6 +92,8 @@ namespace CustomKeys
             InitializeComponent();
 
             CreateKeyControls();
+            LoadConfig();
+            ApplyConfig();
         }
 
         private void CreateKeyControls()
@@ -97,7 +105,7 @@ namespace CustomKeys
                 int x = 12 + ((i - 1) * 60);
                 int y = 40;
                 CreateKeyButton(x, y, $"button{counter}", 33 + counter, $"{counter}");
-                CreateKeyLabel(x+10, y + 26, $"label{i}", $"Key {i}");
+                CreateKeyLabel(x + 10, y + 26, $"label{i}", $"Key {i}");
             }
 
             for (int i = 1; i <= 10; i++)
@@ -121,7 +129,7 @@ namespace CustomKeys
 
         private Button CreateKeyButton(int x, int y, string name, int index, string text)
         {
-            Button btn = new ()
+            Button btn = new()
             {
                 Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point),
 
@@ -142,7 +150,7 @@ namespace CustomKeys
 
         private Label CreateKeyLabel(int x, int y, string name, string text)
         {
-            Label lbl = new ()
+            Label lbl = new()
             {
                 AutoSize = true,
                 Location = new System.Drawing.Point(x, y),
@@ -175,10 +183,26 @@ namespace CustomKeys
         private void Settings_Click(object sender, EventArgs e)
         {
             Settings form = new(this, _Config);
+            form.TopMost = true;
             form.ShowDialog();
 
             SaveConfig();
             ApplyKeySettings();
+        }
+
+        private void toolTipKeys_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            if (this.TraceForm == null) return;
+
+            this.TraceForm.lstTrace.Items.Insert(0, $"tooltip draw - {e.ToolTipText}");
+        }
+
+        private void toolTipKeys_Popup(object sender, PopupEventArgs e)
+        {
+            if (this.TraceForm == null) return;
+
+            this.TraceForm.lstTrace.Items.Insert(0, $"tooltip draw - {e.AssociatedWindow.Handle}");
+
         }
     }
 }

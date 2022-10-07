@@ -15,10 +15,10 @@ namespace CustomKeys
     internal partial class Settings : Form
     {
         private const string HELP_FILE = "help.txt";
-        public Form RelatedForm { get; set; }
+        public MainForm RelatedForm { get; set; }
         private readonly Config _Config;
 
-        public Settings(Form relatedForm, Config config)
+        public Settings(MainForm relatedForm, Config config)
         {
             InitializeComponent();
             this.Width = 890;
@@ -236,6 +236,8 @@ namespace CustomKeys
             {
                 numOpacity.Value = (decimal)_Config.Opacity * 100;
             }
+
+            chkTrace.Checked = _Config.Trace;
         }
 
         private void TopmostCheckedChanged(object sender, EventArgs e)
@@ -283,6 +285,18 @@ namespace CustomKeys
         private void Help_Click(object sender, EventArgs e)
         {
             Process.Start("explorer", Path.Combine(Environment.CurrentDirectory,HELP_FILE));
+        }
+
+        private void Trace_CheckedChanged(object sender, EventArgs e)
+        {
+            _Config.Trace = chkTrace.Checked;
+            
+            if (!chkTrace.Checked)return;
+            
+            _Config.Trace = chkTrace.Checked;
+
+            RelatedForm.TraceForm = new Trace();
+            RelatedForm.TraceForm.Show();
         }
     }
 }
