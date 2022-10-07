@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnSettings = new System.Windows.Forms.Button();
             this.toolTipKeys = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
@@ -55,6 +56,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(625, 212);
             this.Controls.Add(this.btnSettings);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Custom Keys - 1.0";
             this.ResumeLayout(false);
