@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnSettings = new System.Windows.Forms.Button();
+            this.toolTipKeys = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // btnSettings
@@ -40,6 +42,10 @@
             this.btnSettings.Text = "Settings";
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.Settings_Click);
+            // 
+            // toolTipKeys
+            // 
+            this.toolTipKeys.IsBalloon = true;
             // 
             // MainForm
             // 
@@ -55,5 +61,6 @@
 
         #endregion
         private Button btnSettings;
+        private ToolTip toolTipKeys;
     }
 }

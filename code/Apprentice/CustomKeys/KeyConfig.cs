@@ -14,8 +14,9 @@ namespace CustomKeys
         public int BackColor { get; set; }
         public int ForeColor { get; set; }
         public int HoverColor { get; set; }
+        public string Tooltip { get; set; }
 
-        public KeyConfig(string id, string display, string keyPress, int backcolor, int forecolor, int hovercolor)
+        public KeyConfig(string id, string display, string keyPress, int backcolor, int forecolor, int hovercolor, string tooltip)
         {
             Id = id;
             Display = display;
@@ -23,6 +24,7 @@ namespace CustomKeys
             BackColor = backcolor;
             ForeColor = forecolor;
             HoverColor = hovercolor;
+            Tooltip = tooltip;
         }
     }
 }

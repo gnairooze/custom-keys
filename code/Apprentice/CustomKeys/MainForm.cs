@@ -68,6 +68,7 @@ namespace CustomKeys
                 btn.BackColor = Color.FromArgb(keyConfig.BackColor);
                 btn.ForeColor = Color.FromArgb(keyConfig.ForeColor);
                 btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(keyConfig.HoverColor);
+                toolTipKeys.SetToolTip(btn, keyConfig.Tooltip);
             }
         }
 

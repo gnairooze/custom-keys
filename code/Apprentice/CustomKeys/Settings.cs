@@ -21,6 +21,9 @@ namespace CustomKeys
         public Settings(Form relatedForm, Config config)
         {
             InitializeComponent();
+            this.Width = 890;
+            this.Height = 870;
+
             RelatedForm = relatedForm;
             _Config = config;
             CreateKeyConfigsControls();
@@ -38,6 +41,8 @@ namespace CustomKeys
             int col6 = 440;
             int col7 = 520;
             int col8 = 600;
+            int col9 = 700;
+            int col10 = 750;
 
             for (int i = 1; i <= 30; i++)
             {
@@ -45,7 +50,7 @@ namespace CustomKeys
 
                 if (config == null || config.Id == String.Empty)
                 {
-                    config = new KeyConfig($"button{i}", $"{i}", string.Empty, Color.LightGray.ToArgb(), Color.Black.ToArgb(), Color.DarkGray.ToArgb());
+                    config = new KeyConfig($"button{i}", $"{i}", string.Empty, Color.LightGray.ToArgb(), Color.Black.ToArgb(), Color.DarkGray.ToArgb(), string.Empty);
 
                     _Config.KeyConfigs.Add(config);
                 }
@@ -114,6 +119,28 @@ namespace CustomKeys
                 //add hover color button
                 var btnHoverColor = CreateButton("HoverColor", padTop + (i * height) - 4, col8, $"btnHoverColor{i}", config, Color.FromArgb(config.HoverColor), Color.White, Color.Black);
                 btnHoverColor.Click += HoverColor_Click;
+
+                //add tooltip label
+                this.Controls.Add(new Label()
+                {
+                    Top = padTop + (i * height),
+                    Left = col9,
+                    Text = "ToolTip",
+                    AutoSize = true
+                });
+
+
+                //add tooltip text
+                var txtTooltip = new TextBox()
+                {
+                    Top = padTop + (i * height) - 4,
+                    Left = col10,
+                    Name = $"txtTooltip{i}",
+                    Text = config.Tooltip,
+                    Tag = config
+                };
+                txtTooltip.TextChanged += TooltipTextChanged;
+                this.Controls.Add(txtTooltip);
             }
         }
 
@@ -235,6 +262,16 @@ namespace CustomKeys
 
             if (txt.Tag is not KeyConfig config) return;
             config.KeyPress = txt.Text;
+        }
+
+        private void TooltipTextChanged(object? sender, EventArgs e)
+        {
+            if (sender == null) return;
+
+            var txt = (TextBox)sender;
+
+            if (txt.Tag is not KeyConfig config) return;
+            config.Tooltip = txt.Text;
         }
 
         private void OpacityValueChanged(object sender, EventArgs e)
